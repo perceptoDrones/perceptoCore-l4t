@@ -168,6 +168,32 @@ obj-${CONFIG_SYSEDP_FRAMEWORK}          += board-tn8-sysedp.o
 obj-${CONFIG_SYSEDP_FRAMEWORK}          += board-ardbeg-sysedp.o
 endif
 
+obj-${CONFIG_MACH_PERCEPTO1}               += board-percepto1.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-percepto1-sdhci.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-ardbeg-memory.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-ardbeg-power.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-percepto1-sensors.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-ardbeg-panel.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-a-1080p-11-6.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-a-1080p-14-0.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-a-1200-800-8-0.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-s-wqxga-10-1.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-a-edp-1080p-14-0.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-i-edp-1080p-11-6.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-s-edp-uhdtv-15-6.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-c-lvds-1366-14.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-s-edp-wqxgap-15-6.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-a-1200-1920-8-0.o
+obj-${CONFIG_MACH_PERCEPTO1}               += panel-a-1200-800-8-0.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-laguna-power.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-norrin-power.o
+obj-${CONFIG_MACH_PERCEPTO1}               += board-tn8-power.o
+
+ifeq ($(CONFIG_MACH_PERCEPTO1),y)
+obj-${CONFIG_SYSEDP_FRAMEWORK}          += board-tn8-sysedp.o
+obj-${CONFIG_SYSEDP_FRAMEWORK}          += board-ardbeg-sysedp.o
+endif
+
 obj-${CONFIG_MACH_LOKI}               	+= board-loki.o
 obj-${CONFIG_MACH_LOKI}               	+= board-loki-kbc.o
 obj-${CONFIG_MACH_LOKI}               	+= board-loki-sensors.o

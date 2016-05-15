@@ -966,6 +966,7 @@ int __init ardbeg_panel_init(void)
 		break;
 	case BOARD_PM375:
 	case BOARD_PM377:
+	case BOARD_PERCEPTO1:
 		ardbeg_tmds_config[1].pe_current = 0x08080808;
 		ardbeg_tmds_config[1].drive_current = 0x2d2d2d2d;
 		ardbeg_tmds_config[1].peak_current = 0x0;

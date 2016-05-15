@@ -549,3 +549,4 @@ ENTRY(__tegra_cpu_reset_handler_end)
 	.globl	__tegra_cpu_reset_handler_data_offset
 	.equ	__tegra_cpu_reset_handler_data_offset, \
 	__tegra_cpu_reset_handler_data - __tegra_cpu_reset_handler_start
+

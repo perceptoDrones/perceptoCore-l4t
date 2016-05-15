@@ -163,6 +163,13 @@ config MACH_ARDBEG
        help
          Support for NVIDIA ARDBEG Development platform
 
+config MACH_PERCEPTO1
+       bool "PERCEPTO1 board"
+       depends on ARCH_TEGRA_12x_SOC || ARCH_TEGRA_11x_SOC
+       select SYSEDP_FRAMEWORK
+       help
+         Support for PERCEPTO percepto1 platform, based on the NVIDIA TK1 SOC
+
 config MACH_LOKI
        bool "Loki board"
        depends on ARCH_TEGRA_12x_SOC

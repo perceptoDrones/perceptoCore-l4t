@@ -50,6 +50,7 @@
 #define BOARD_E1991   0x07c7
 #define BOARD_PM375   0x0177
 #define BOARD_PM377   0x0179
+#define BOARD_PERCEPTO1 0x0188
 
 /* Board SKU */
 #define BOARD_SKU_FOSTER  0x0384
