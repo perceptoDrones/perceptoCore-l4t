@@ -469,6 +469,8 @@ static struct tegra_spi_device_controller_data mcp2512_dev_cdata = {
 };
 
 static struct spi_board_info percepto_spi_board_info[] = {
+
+	/* SPI-to-CAN transceiver */
 	[0] = {
 		.modalias	= "mcp2515",
 		.platform_data	= &mcp2515_pdata,
@@ -479,6 +481,8 @@ static struct spi_board_info percepto_spi_board_info[] = {
 		.chip_select	= 0,
 	},
 
+	/* This is a generic userspace accesible device
+	   connected to the MachXO2 programming interface on Rev.D boards */
 	[1] = {
 		.modalias = "spidev",
 		.platform_data = NULL,
@@ -495,16 +499,16 @@ static int __init percepto1_spi_devices_init(void)
 
 	 /* Interrupt pin available from board revision Percepto 1.4 */
 	 /* Earlier revisions have it N/C */
-	 percepto_spi_board_info[0].irq = gpio_to_irq(TEGRA_GPIO_PX4);
+	 percepto_spi_board_info[0].irq = gpio_to_irq(TEGRA_GPIO_PX3);
 
-   ret = gpio_request(TEGRA_GPIO_PX4, "MCP251x interrupt");
+   ret = gpio_request(TEGRA_GPIO_PX3, "MCP251x interrupt");
 
 	 if (ret < 0) {
 		 pr_err("gpio_request failed for MCP251x irq\n");
 		 return ret;
 	 }
 
-	 gpio_direction_input(TEGRA_GPIO_PX4);
+	 gpio_direction_input(TEGRA_GPIO_PX3);
 	 spi_register_board_info( percepto_spi_board_info, ARRAY_SIZE(percepto_spi_board_info) );
 	 return 0;
 }
