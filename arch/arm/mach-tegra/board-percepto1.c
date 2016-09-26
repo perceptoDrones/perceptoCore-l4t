@@ -478,6 +478,15 @@ static struct spi_board_info percepto_spi_board_info[] = {
 		.mode		= SPI_MODE_0,
 		.chip_select	= 0,
 	},
+
+	[1] = {
+		.modalias = "spidev",
+		.platform_data = NULL,
+		.max_speed_hz = 1*1000*1000,
+		.bus_num = 3,
+		.mode = SPI_MODE_0,
+		.chip_select = 0,
+	}
 };
 
 static int __init percepto1_spi_devices_init(void)
