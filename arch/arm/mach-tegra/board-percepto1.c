@@ -551,6 +551,56 @@ static struct tegra_io_dpd pexclk2_io = {
 	.io_dpd_bit		= 6,
 };
 
+extern unsigned long long tegra_chip_uid(void);
+static unsigned long long tegra_uid;
+static struct kobject *uid_kobj;
+
+// SysFs callback: Read chip uid in decimal
+static ssize_t uid_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+{
+  return sprintf(buf, "%llu\n", tegra_uid );
+}
+
+// SysFs callback: Read chip uid in hex
+static ssize_t uid_show_hex(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
+{
+  return sprintf(buf, "0x%llx\n", tegra_uid );
+}
+
+// Setup of permissions and callbacks for sysfs.
+static struct kobj_attribute uid_attribute =__ATTR( soc_uid, 0666, uid_show, NULL );
+static struct kobj_attribute uid_attribute_hex =__ATTR( soc_uid_hex, 0666, uid_show_hex, NULL );
+
+static int tegra_percepto1_uid_init(void)
+{
+	tegra_uid = tegra_chip_uid();
+
+	pr_info( "chip UID: %llu\n", tegra_uid );
+
+	// Create sysfs entry
+	uid_kobj = kobject_create_and_add("percepto", kernel_kobj );
+
+	if ( !uid_kobj )
+		return -ENOMEM;
+
+	// Create sysfs files
+	if ( sysfs_create_file( uid_kobj, &uid_attribute.attr ) )
+	{
+		pr_debug( "failed to create sysfs entry for chip uid\n" );
+		kobject_put(uid_kobj);
+		return -ENOMEM;
+	}
+
+	if ( sysfs_create_file( uid_kobj, &uid_attribute_hex.attr ) )
+	{
+		pr_debug( "failed to create sysfs entry for chip uid (hex)\n" );
+		kobject_put(uid_kobj);
+		return -ENOMEM;
+	}
+
+	return 0;
+}
+
 static void __init tegra_percepto1_late_init(void)
 {
 	struct board_info board_info;
@@ -587,6 +637,7 @@ static void __init tegra_percepto1_late_init(void)
 	percepto1_sensors_init();
 	norrin_soctherm_init();
 	percepto1_spi_devices_init();
+	tegra_percepto1_uid_init();
 }
 
 static void __init tegra_percepto1_init_early(void)
