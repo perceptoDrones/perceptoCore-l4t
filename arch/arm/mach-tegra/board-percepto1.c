@@ -389,7 +389,21 @@ static struct tegra_xusb_platform_data xusb_pdata = {
 #ifdef CONFIG_TEGRA_XUSB_PLATFORM
 static void percepto1_xusb_init(void)
 {
+		int usb_port_owner_info = tegra_get_usb_port_owner_info();
+
 		xusb_pdata.lane_owner = (u8) tegra_get_lane_owner_info();
+
+		if (!(usb_port_owner_info & UTMI1_PORT_OWNER_XUSB))
+				xusb_pdata.portmap &= ~(TEGRA_XUSB_USB2_P0);
+
+		if (!(usb_port_owner_info & UTMI2_PORT_OWNER_XUSB))
+				xusb_pdata.portmap &= ~(TEGRA_XUSB_USB2_P2 | TEGRA_XUSB_USB2_P1 | TEGRA_XUSB_SS_P0);
+
+		if (usb_port_owner_info & HSIC1_PORT_OWNER_XUSB)
+				xusb_pdata.portmap |= TEGRA_XUSB_HSIC_P0;
+
+		if (usb_port_owner_info & HSIC2_PORT_OWNER_XUSB)
+				xusb_pdata.portmap |= TEGRA_XUSB_HSIC_P1;
 }
 #endif
 
